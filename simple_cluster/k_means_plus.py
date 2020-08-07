@@ -13,6 +13,12 @@ class K_means_plus(Base):
     def __init__(self, k=3):
         Base.__init__(self, k)
 
+    """Function to find the nearest distance between a point to current cluster centers
+       Args: 
+           point(float, float): coordinate of a point
+           cluster_centers(list of points): current cluster_centers
+       Returns: nearest distance
+    """
     def nearest(self, point, cluster_centers):
         min_dist = inf
         m = np.shape(cluster_centers)[0]  # the number of cluster centers already
@@ -23,6 +29,10 @@ class K_means_plus(Base):
                 min_dist = d
         return min_dist
 
+    """Function to find cluster centers
+       Args: None
+       Returns: cluster centers(list of coordinate of centers)
+    """
     def get_centroids(self):
         m, n = np.shape(self.data)
         cluster_centers = np.zeros((self.k, n))
@@ -48,6 +58,10 @@ class K_means_plus(Base):
                 break
         return cluster_centers
 
+    """Function to cluster samples by using K-means++ algorithm
+               Args: None
+               Returns: None
+    """
     def k_means_puls_clustering(self):
         row_m=shape(self.data)[0]
         self.cluster_assign=zeros((row_m,2))

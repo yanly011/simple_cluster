@@ -12,7 +12,13 @@ class K_means(Base):
 
     def __init__(self, k=3):
         Base.__init__(self, k)
-        
+
+    """Function to identify cluster centers randomly
+       Args: 
+           dataset(list of points): sample points
+           k(int): number of clusters
+       Returns (list of points): Initial centers
+    """
     def rand_center(self, dataset, k):
         dim=shape(dataset)[1]
         init_cen=zeros((k,dim))
@@ -21,7 +27,11 @@ class K_means(Base):
             range_i=float(max(dataset[:,i]) - min_i)
             init_cen[:,i]=min_i + range_i*random.rand(k)
         return init_cen
-    
+
+    """Function to cluster samples by using K-means algorithm
+           Args: None
+           Returns: None
+    """
     def k_means_clustering(self):
         row_m=shape(self.data)[0]
         self.cluster_assign=zeros((row_m,2))
@@ -44,16 +54,9 @@ class K_means(Base):
                 cluster_data=self.data[nonzero(self.cluster_assign[:,0]==cen)]
                 self.cluster_center[cen,:]=mean(cluster_data,0)
 
+    """Function to output the characteristics of the Kmeans instance
+       Args: None
+       Returns: string: characteristics of the cluster
+    """
     def __repr__(self):
-
-        """Function to output the characteristics of the Kmeans instance
-
-        Args:
-            None
-
-        Returns:
-            string: characteristics of the cluster
-
-        """
-
         return "k {},\ncluster centers \n{}\ncluster assigns \n{}".format(self.k, self.cluster_center, self.cluster_assign)
